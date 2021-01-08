@@ -95,7 +95,7 @@ def triplet_made(my_board):
     
     return False
 
-def func(my_board,depth,tup,maximize_bool):# ai is 0-> minimizer => player is maximizer
+def func(my_board,depth,tup,maximize_bool,alpha,beta):# ai is 0-> minimizer => player is maximizer
    # print("func 1 is getting called with depth ",depth," ( ",tup[0]," , ",tup[1]," ) ",maximize_bool)
     if depth == 0 or triplet_made(my_board):                         
         return evaluate(my_board)+depth*10 ,tup
@@ -108,13 +108,16 @@ def func(my_board,depth,tup,maximize_bool):# ai is 0-> minimizer => player is ma
             for j in range(3):
                 if my_board[i][j] == -1:
                     my_board[i][j] = 1
-                    a,(m,n) = func(my_board,depth-1,(i,j),False) 
+                    a,(m,n) = func(my_board,depth-1,(i,j),False,alpha,beta) 
                     if maxi < a:
                         maxi = a
                         answer=maxi
                         x = m 
                         y = n
                     my_board[i][j] = -1
+                    alpha = max( alpha, maxi)
+                    if beta <= alpha:
+                        break
         
 
     else:
@@ -123,13 +126,16 @@ def func(my_board,depth,tup,maximize_bool):# ai is 0-> minimizer => player is ma
             for j in range(3):
                 if my_board[i][j] == -1:
                     my_board[i][j] = 0
-                    a,(m,n)=func(my_board,depth-1,(i,j),True)
+                    a,(m,n)=func(my_board,depth-1,(i,j),True,alpha,beta)
                     if mini > a:
                         mini=a
                         answer=mini
                         x = m
                         y = n
                     my_board[i][j] = -1
+                    beta = min( beta, mini)
+                    if beta <= alpha:
+                        break
     
     return answer,(x,y)
 
@@ -156,7 +162,7 @@ def minimax(board):
         for j in range(3):
             if my_board[i][j] == -1:
                 my_board[i][j] = 0
-                a , (x,y) = func(my_board,depth-1,(i,j),True)
+                a , (x,y) = func(my_board,depth-1,(i,j),True,-float("inf"), float("inf"))
                 if mini > a:
                     mini = a
                     x_final = i

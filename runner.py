@@ -12,9 +12,9 @@ white = (255, 255, 255)
 
 screen = pygame.display.set_mode(size)
 
-mediumFont = pygame.font.Font("OpenSans-Regular.ttf", 28)
-largeFont = pygame.font.Font("OpenSans-Regular.ttf", 40)
-moveFont = pygame.font.Font("OpenSans-Regular.ttf", 60)
+mediumFont = pygame.font.SysFont("OpenSans-Regular.ttf", 25)
+largeFont = pygame.font.SysFont("OpenSans-Regular.ttf", 40)
+moveFont = pygame.font.SysFont("OpenSans-Regular.ttf", 60)
 user = None
 board = ttt.initial_state()
 ai_turn = False
@@ -27,21 +27,21 @@ while True:
     if user is None:
 
         # Draw title
-        title = largeFont.render("Play Tic-Tac-Toe", True, white)
+        title = largeFont.render("Play Tic-Tac-Toe 1-0 ", True, white)
         titleRect = title.get_rect()
         titleRect.center = ((width / 2), 50)
         screen.blit(title, titleRect)
 
         # Draw buttons
-        playXButton = pygame.Rect((width / 8), (height / 2), width / 4, 50)
-        playX = mediumFont.render("Play as X", True, black)
+        playXButton = pygame.Rect((width / 8), (height / 2), width / 3, 50)
+        playX = mediumFont.render("First you play", True, black)
         playXRect = playX.get_rect()
         playXRect.center = playXButton.center
         pygame.draw.rect(screen, white, playXButton)
         screen.blit(playX, playXRect)
 
-        playOButton = pygame.Rect(5 * (width / 8), (height / 2), width / 4, 50)
-        playO = mediumFont.render("Play as O", True, black)
+        playOButton = pygame.Rect(5 * (width / 8), (height / 2), width / 3, 50)
+        playO = mediumFont.render("First computer will play", True, black)
         playORect = playO.get_rect()
         playORect.center = playOButton.center
         pygame.draw.rect(screen, white, playOButton)
@@ -74,8 +74,7 @@ while True:
                 )
                 pygame.draw.rect(screen, white, rect, 3)
 
-                if board[i][j] != ttt.EMPTY: #try to optimise this EMPTY(Board) function
-                    #print("Move taken, ","(",i,",",j,")")
+                if board[i][j] != ttt.EMPTY: 
                     move = moveFont.render(str(board[i][j]), True, white)
                     moveRect = move.get_rect()
                     moveRect.center = rect.center
@@ -88,14 +87,13 @@ while True:
 
         # Show title
         if game_over:
-          #  time.sleep(2.0)
             winner = ttt.winner(board)
             if winner is None:
                 title = f"Game Over: Tie."
             else:
                 title = f"Game Over: {winner} wins."
         elif user == player:
-            title = f"Play as {user}"
+            title = f"Play as 1"
         else:
             title = f"Computer thinking..."
         title = largeFont.render(title, True, white)

@@ -1,3 +1,3 @@
 # Winter-SOC-projects
 #### Setup Visual studio(or any other IDE) install python
-#### Video of project is in https://github.com/DevanshSaini18/Winter-SOC-projects/blob/main/video%20of%20project.mp4
+#### Video of project is https://drive.google.com/drive/folders/1Ce3lXe8VfYbK82lt8JEUCDcY75z0KImf
